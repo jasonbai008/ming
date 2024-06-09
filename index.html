@@ -184,7 +184,7 @@
                         {
                             name: "明朝那些事儿",
                             artist: "当年明月",
-                            cover: "https://api.vvhan.com/api/bing?size=640x480",
+                            cover: "https://api.vvhan.com/api/bing?rand=sj&size=640x480",
                             source: "mp3/libai.mp3",
                             favorited: true
                         }
@@ -232,12 +232,12 @@
             },
             methods: {
                 genTracks() {
-                    this.tracks = new Array(20).fill(0).map((_, index) => {
+                    this.tracks = new Array(80).fill(0).map((_, index) => {
                         let i = (index + 1).toString().padStart(3, '0');
                         return {
                             name: `明朝那些事儿（${i}/268）`,
                             artist: "当年明月",
-                            cover: "https://api.vvhan.com/api/bing?size=640x480",
+                            cover: "https://api.vvhan.com/api/bing?rand=sj&size=640x480",
                             source: `https://jasonbai008.github.io/asset3/ming/明朝那些事儿_${i}.mp3`,
                             favorited: true
                         }
