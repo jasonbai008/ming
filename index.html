@@ -16,9 +16,8 @@
             <div class="player__top">
                 <div class="player-cover">
                     <transition-group :name="transitionName">
-                        <div class="player-cover__item" v-if="$index === currentTrackIndex"
-                            :style="{ backgroundImage: `url(${track.cover})` }" v-for="(track, $index) in tracks"
-                            :key="$index"></div>
+                        <div class="player-cover__item" :style="{ backgroundImage: `url(${currentTrack.cover})` }"
+                            ref="img" :key="randomId"></div>
                     </transition-group>
                 </div>
                 <div class="player-controls">
@@ -174,6 +173,7 @@
             el: "#app",
             data() {
                 return {
+                    randomId: Date.now(),
                     audio: null,
                     circleLeft: null,
                     barWidth: null,
@@ -237,7 +237,8 @@
                         return {
                             name: `明朝那些事儿（${i}/268）`,
                             artist: "当年明月",
-                            cover: "https://api.vvhan.com/api/bing?rand=sj&size=640x480",
+                            // 封面图片加上了随机值，这样每次都请求最新的图片
+                            cover: `https://api.vvhan.com/api/bing?rand=sj&size=640x480&randomId=${i}`,
                             source: `https://jasonbai008.github.io/asset3/ming/明朝那些事儿_${i}.mp3`,
                             favorited: true
                         }
@@ -325,6 +326,7 @@
                     this.circleLeft = 0;
                     this.audio.currentTime = 0;
                     this.audio.src = this.currentTrack.source;
+                    this.randomId = Date.now();
                     // 存储当前集数
                     localStorage.curTrack = this.currentTrackIndex;
                     setTimeout(() => {
