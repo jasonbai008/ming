@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>明朝那些事儿-当年明月</title>
+    <title>明朝那些事儿</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/reset.min.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -197,7 +198,15 @@
                 let vm = this;
                 // 生成268集的音频列表数组
                 this.genTracks()
-                this.currentTrack = this.tracks[0];
+
+                // 根据历史记录，获取本地播放集数
+                if (localStorage.curTrack === undefined) {
+                    localStorage.curTrack = 0
+                    this.currentTrackIndex = 0
+                } else {
+                    this.currentTrackIndex = Number(localStorage.curTrack)
+                }
+                this.currentTrack = this.tracks[this.currentTrackIndex];
                 this.audio = new Audio();
                 this.audio.src = this.currentTrack.source;
                 this.audio.ontimeupdate = function () {
@@ -226,7 +235,7 @@
                     this.tracks = new Array(20).fill(0).map((_, index) => {
                         let i = (index + 1).toString().padStart(3, '0');
                         return {
-                            name: `明朝那些事儿(${i}/268)`,
+                            name: `明朝那些事儿（${i}/268）`,
                             artist: "当年明月",
                             cover: "https://api.vvhan.com/api/bing?size=640x480",
                             source: `https://jasonbai008.github.io/asset3/ming/明朝那些事儿_${i}.mp3`,
@@ -235,6 +244,8 @@
                     });
                 },
                 play() {
+                    // 存储当前集数
+                    localStorage.curTrack = this.currentTrackIndex
                     if (this.audio.paused) {
                         this.audio.play();
                         this.isTimerPlaying = true;
@@ -314,6 +325,8 @@
                     this.circleLeft = 0;
                     this.audio.currentTime = 0;
                     this.audio.src = this.currentTrack.source;
+                    // 存储当前集数
+                    localStorage.curTrack = this.currentTrackIndex;
                     setTimeout(() => {
                         if (this.isTimerPlaying) {
                             this.audio.play();
