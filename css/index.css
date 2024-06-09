@@ -382,3 +382,17 @@ body {
   pointer-events: none;
   opacity: 0;
 }
+
+.list {
+  width: 70vw;
+  height: calc(100vh - 10vh);
+  overflow-y: scroll;
+}
+
+.list span {
+  display: block;
+  line-height: 2;
+  text-align: center;
+  letter-spacing: 1px;
+  color: #71829e;
+}

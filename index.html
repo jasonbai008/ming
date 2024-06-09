@@ -12,7 +12,7 @@
 
 <body>
     <div class="wrapper" id="app">
-        <div class="player">
+        <div class="player" v-if="mode">
             <div class="player__top">
                 <div class="player-cover">
                     <transition-group :name="transitionName">
@@ -52,7 +52,7 @@
             </div>
             <div class="progress" ref="progress">
                 <div class="progress__top">
-                    <div class="album-info" v-if="currentTrack">
+                    <div class="album-info" v-if="currentTrack" @click="mode=false">
                         <div class="album-info__name">{{ currentTrack.name }}</div>
                         <div class="album-info__track">{{ currentTrack.artist }}</div>
                     </div>
@@ -64,6 +64,9 @@
                 <div class="progress__time">{{ currentTime }}</div>
             </div>
             <div v-cloak></div>
+        </div>
+        <div class="list" v-else>
+            <span v-for="(t,i) in tracks" :key="i" @click="playThisOne(i)">{{t.title}}</span>
         </div>
     </div>
 
@@ -173,6 +176,7 @@
             el: "#app",
             data() {
                 return {
+                    mode: true,
                     randomId: Date.now(),
                     audio: null,
                     circleLeft: null,
@@ -186,6 +190,7 @@
                             artist: "当年明月",
                             cover: "https://api.vvhan.com/api/bing?rand=sj&size=640x480",
                             source: "mp3/libai.mp3",
+                            title: `明朝那些事儿_001`,
                             favorited: true
                         }
                     ],
@@ -248,6 +253,7 @@
                             // 封面图片加上了随机值，这样每次都请求最新的图片
                             cover: `https://api.vvhan.com/api/bing?rand=sj&size=640x480&randomId=${i}`,
                             source: `https://jasonbai008.github.io/${assetNum}/ming/明朝那些事儿_${i}.mp3`,
+                            title: `明朝那些事儿 ${i}`,
                             favorited: true
                         }
                     });
@@ -263,6 +269,16 @@
                         this.audio.pause();
                         this.isTimerPlaying = false;
                     }
+                },
+                playThisOne(i) {
+                    this.mode = true
+                    this.currentTrackIndex = i
+                    this.currentTrack = this.tracks[this.currentTrackIndex];
+                    this.resetPlayer()
+                    setTimeout(() => {
+                        this.audio.play();
+                        this.isTimerPlaying = true;
+                    }, 3000);
                 },
                 generateTime() {
                     let width = (100 / this.audio.duration) * this.audio.currentTime;
