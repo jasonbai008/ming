@@ -232,17 +232,26 @@
             },
             methods: {
                 genTracks() {
-                    this.tracks = new Array(80).fill(0).map((_, index) => {
+                    this.tracks = new Array(100).fill(0).map((_, index) => {
                         let i = (index + 1).toString().padStart(3, '0');
+                        let assetNum = 'asset3'
+                        if (i <= 80) {
+                            assetNum = 'asset3'
+                        } else if (i <= 190) {
+                            assetNum = 'asset4'
+                        } else if (i <= 267) {
+                            assetNum = 'asset5'
+                        }
                         return {
                             name: `明朝那些事儿（${i}/268）`,
                             artist: "当年明月",
                             // 封面图片加上了随机值，这样每次都请求最新的图片
                             cover: `https://api.vvhan.com/api/bing?rand=sj&size=640x480&randomId=${i}`,
-                            source: `https://jasonbai008.github.io/asset3/ming/明朝那些事儿_${i}.mp3`,
+                            source: `https://jasonbai008.github.io/${assetNum}/ming/明朝那些事儿_${i}.mp3`,
                             favorited: true
                         }
                     });
+                    console.log(this.tracks)
                 },
                 play() {
                     // 存储当前集数
