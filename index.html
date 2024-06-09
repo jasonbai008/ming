@@ -232,14 +232,14 @@
             },
             methods: {
                 genTracks() {
-                    this.tracks = new Array(100).fill(0).map((_, index) => {
+                    this.tracks = new Array(268).fill(0).map((_, index) => {
                         let i = (index + 1).toString().padStart(3, '0');
                         let assetNum = 'asset3'
                         if (i <= 80) {
                             assetNum = 'asset3'
                         } else if (i <= 190) {
                             assetNum = 'asset4'
-                        } else if (i <= 267) {
+                        } else if (i <= 268) {
                             assetNum = 'asset5'
                         }
                         return {
