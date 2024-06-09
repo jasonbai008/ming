@@ -65,6 +65,7 @@
             </div>
             <div v-cloak></div>
         </div>
+        <!-- 播放列表 -->
         <div class="list" v-else>
             <span v-for="(t,i) in tracks" :key="i" @click="playThisOne(i)">{{t.title}}</span>
         </div>
