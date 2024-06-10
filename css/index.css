@@ -76,6 +76,11 @@ body {
   z-index: 1;
 }
 
+.player-cover:hover,
+.album-info:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 576px), (max-height: 500px) {
   .player-cover {
     margin-top: -70px;
@@ -261,6 +266,8 @@ body {
   width: 100%;
   margin-top: -15px;
   user-select: none;
+  position: relative;
+  z-index: 5;
 }
 
 .progress__top {
@@ -394,4 +401,39 @@ body {
   text-align: center;
   letter-spacing: 1px;
   color: #71829e;
+}
+
+.list span:hover,
+.list span.active {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+.list {
+  --sb-track-color: #d1dce7;
+  --sb-thumb-color: #acb8cc;
+  --sb-size: 8px;
+}
+
+.list::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+.list::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .list {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
 }
