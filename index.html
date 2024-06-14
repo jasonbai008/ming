@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/reset.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
 </head>
 
 <body>
@@ -174,7 +175,7 @@
             </symbol>
         </defs>
     </svg>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    
     <script>
         /*
         design by Voicu Apostol.
@@ -224,8 +225,15 @@
                 this.currentTrack = this.tracks[this.currentTrackIndex];
                 this.audio = new Audio();
                 this.audio.src = this.currentTrack.source;
+
+                // 如果浏览器里有历史记录，就提取出来，设置播放进度
+                if (localStorage.curTime) this.audio.currentTime = localStorage.curTime
+
+                // 播放时的事件，会一直触发
                 this.audio.ontimeupdate = function () {
                     vm.generateTime();
+                    // 缓存播放进度
+                    localStorage.curTime = vm.audio.currentTime
                 };
                 this.audio.onloadedmetadata = function () {
                     vm.generateTime();
