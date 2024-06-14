@@ -390,7 +390,7 @@ body {
 }
 
 .list {
-  width: 70vw;
+  width: 220px;
   height: calc(100vh - 10vh);
   overflow-y: scroll;
 }
@@ -409,7 +409,6 @@ body {
   font-weight: bold;
 }
 
-
 .list {
   --sb-track-color: #d1dce7;
   --sb-thumb-color: #acb8cc;
@@ -417,7 +416,7 @@ body {
 }
 
 .list::-webkit-scrollbar {
-  width: var(--sb-size)
+  width: var(--sb-size);
 }
 
 .list::-webkit-scrollbar-track {
@@ -428,12 +427,20 @@ body {
 .list::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: 3px;
-  
+}
+
+.back {
+  position: absolute;
+  right: 8vw;
+  font-size: 28px;
+}
+
+.back:hover {
+  cursor: pointer;
 }
 
 @supports not selector(::-webkit-scrollbar) {
   .list {
-    scrollbar-color: var(--sb-thumb-color)
-                     var(--sb-track-color);
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }
