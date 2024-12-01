@@ -225,9 +225,18 @@
           this.audio.onloadedmetadata = function () {
             vm.generateTime();
           };
+          this.audio.onplay = function () {
+            vm.isTimerPlaying = true;
+          };
+          this.audio.onpause = function () {
+            vm.isTimerPlaying = false;
+          };
+          this.audio.onerror = function () {
+            vm.isTimerPlaying = false;
+          };
           this.audio.onended = function () {
             vm.nextTrack();
-            this.isTimerPlaying = true;
+            vm.isTimerPlaying = true;
           };
         },
         methods: {
@@ -243,7 +252,7 @@
                 assetNum = "asset5";
               }
               return {
-                name: `明朝那些事儿 [${i}/268]`,
+                name: `明朝那些事儿 ${i}/268`,
                 artist: "当年明月",
                 // 封面图片加上了随机值，这样每次都请求最新的图片
                 cover: `https://bing.img.run/rand_1366x768.php`,
