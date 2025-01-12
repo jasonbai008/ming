@@ -236,7 +236,8 @@
           };
           this.audio.onended = function () {
             vm.nextTrack();
-            vm.isTimerPlaying = true;
+            // 当播放完当前一集，自动切换到下一集，但是不自动播放，这里控制是否自动播放
+            vm.isTimerPlaying = false;
           };
         },
         methods: {
